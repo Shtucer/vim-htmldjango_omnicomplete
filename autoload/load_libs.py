@@ -173,9 +173,11 @@ def get_block_tags(start=''):
 
 def get_template_names(pattern):
     dirs = mysettings.TEMPLATE_DIRS + app_template_dirs
-    for d in [e["DIRS"] for e in mysettings.TEMPLATES]:
-        dirs += tuple(d)
-    print(dirs)
+
+    if hasattr(mysettings, "TEMPLATES"):
+        # For Django 1.8
+        for d in [e["DIRS"] for e in mysettings.TEMPLATES]:
+            dirs += tuple(d)
     matches = []
     for d in dirs:
         d = d + (os.path.sep if not d.endswith(os.path.sep) else '')
