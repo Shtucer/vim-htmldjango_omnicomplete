@@ -173,9 +173,12 @@ def get_block_tags(start=''):
 
 def get_template_names(pattern):
     dirs = mysettings.TEMPLATE_DIRS + app_template_dirs
+    for d in [e["DIRS"] for e in mysettings.TEMPLATES]:
+        dirs += tuple(d)
+    print(dirs)
     matches = []
     for d in dirs:
-        d = d + ('/' if not d.endswith('/') else '')
+        d = d + (os.path.sep if not d.endswith(os.path.sep) else '')
         for m in glob(os.path.join(d,pattern + '*')):
             if os.path.isdir(m):
                 for root,dirnames,filenames in os.walk(m):
@@ -322,7 +325,7 @@ def htmldjangocomplete(context, match):
 
     for cmpl in all:
         dictstr += '{'
-        for x in cmpl: dictstr += '"%s":"%s",' % (x,cmpl[x])
+        for x in cmpl: dictstr += '"%s":"%s",' % (x,cmpl[x].replace("\\","\\\\"))
         dictstr += '"icase":0},'
     if dictstr[-1] == ',': dictstr = dictstr[:-1]
     dictstr += ']'

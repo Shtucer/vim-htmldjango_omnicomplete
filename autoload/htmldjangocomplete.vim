@@ -30,11 +30,12 @@ endif
 if g:htmldjangocomplete_python==3
     let s:cmd_python='python3'
     let s:file_python='py3file'
-elseif g:htmldjangocomplete_python==3
+else 
+    " g:htmldjangocomplete_python==2
     let s:cmd_python='python'
     let s:file_python='pyfile'
 endif
-let s:script_path = fnameescape(expand('<sfile>:p:h:h'))
+let s:script_path = fnameescape(expand('<sfile>:p:h'))
 execute 'command! -nargs=1 DjPython '.s:cmd_python.' <args>'
 
 "{{{1 The actual omnifunc

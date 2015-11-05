@@ -1,0 +1,4 @@
+htmldjango=d:/Projects/vim/vim-htmldjango_omnicomplete CD=. filter="*.py *.vim" {
+ autoload=autoload {
+}
+}
